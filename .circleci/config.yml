@@ -1,9 +1,3 @@
-deployment:
-  production:
-    branch: master
-    commands:
-      - cd docs && yarn build && firebase deploy --token=$FIREBASE_TOKEN --non-interactive
-
 defaults: &defaults
   working_directory: /tmp/material-ui
   docker:
@@ -14,6 +8,12 @@ restore_repo: &restore_repo
       - v1-repo-{{ .Branch }}-{{ .Revision }}
 version: 2
 jobs:
+  deploy_docs:
+    <<: *defaults
+    steps:
+      - run:
+          name: Deploy to Firebase
+          command: cd docs && yarn build && firebase deploy --token=$FIREBASE_TOKEN --non-interactive
   checkout:
     <<: *defaults
     steps:
@@ -105,4 +105,7 @@ workflows:
       - test_regressions:
           requires:
             - test_unit
-            - test_browser           
+            - test_browser
+      - deploy_docs:
+          requires:
+            - test_regressions
