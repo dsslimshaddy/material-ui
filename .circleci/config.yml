@@ -13,7 +13,10 @@ jobs:
     steps:
       - run:
           name: Deploy to Firebase
-          command: cd docs && yarn build && firebase deploy --token=$FIREBASE_TOKEN --non-interactive
+          command: |
+            cd docs
+            yarn build
+            firebase deploy --token=$FIREBASE_TOKEN --non-interactive
   checkout:
     <<: *defaults
     steps:
