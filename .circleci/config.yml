@@ -109,7 +109,7 @@ workflows:
           requires:
             - test_unit
             - test_browser
-       - deploy_docs
+       - deploy_docs:
           requires:
             - test_unit
             - test_browser       
