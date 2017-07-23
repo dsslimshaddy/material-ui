@@ -11,6 +11,7 @@ jobs:
   deploy_docs:
     <<: *defaults
     steps:
+      - *restore_repo
       - run:
           name: Deploy to Firebase
           command: |
