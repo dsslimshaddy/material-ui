@@ -8,6 +8,7 @@
 .*/node_modules/eslint-plugin-jsx-a11y/src/.*
 .*/scripts/*
 .*/docs/webpack.*
+.*/node_modules/[^p].*
 
 [libs]
 
