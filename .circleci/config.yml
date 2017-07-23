@@ -102,4 +102,9 @@ workflows:
       - test_regressions:
           requires:
             - test_unit
-            - test_browser
+            - test_browser           
+deployment:
+  production:
+    branch: master
+    commands:
+      - firebase deploy --token=$FIREBASE_TOKEN --non-interactive
