@@ -3,13 +3,14 @@
 import React, { createElement, cloneElement } from 'react';
 import type { Element } from 'react';
 import classNames from 'classnames';
-import { createStyleSheet } from 'jss-theme-reactor';
-import { capitalizeFirstLetter } from '../utils/helpers';
+import createStyleSheet from '../styles/createStyleSheet';
 import withStyles from '../styles/withStyles';
+import { capitalizeFirstLetter } from '../utils/helpers';
 import Modal from '../internal/Modal';
 import Fade from '../transitions/Fade';
 import { duration } from '../styles/transitions';
 import Paper from '../Paper';
+import type { TransitionCallback } from '../internal/Transition';
 
 export const styleSheet = createStyleSheet('MuiDialog', theme => ({
   root: {
@@ -18,6 +19,7 @@ export const styleSheet = createStyleSheet('MuiDialog', theme => ({
   },
   paper: {
     display: 'flex',
+    margin: theme.spacing.unit * 4,
     flexDirection: 'column',
     flex: '0 1 auto',
     position: 'relative',
@@ -91,15 +93,15 @@ type Props = {
   /**
    * Callback fired before the dialog enters.
    */
-  onEnter?: Function,
+  onEnter?: TransitionCallback,
   /**
    * Callback fired when the dialog is entering.
    */
-  onEntering?: Function,
+  onEntering?: TransitionCallback,
   /**
    * Callback fired when the dialog has entered.
    */
-  onEntered?: Function, // eslint-disable-line react/sort-prop-types
+  onEntered?: TransitionCallback, // eslint-disable-line react/sort-prop-types
   /**
    * Callback fires when the escape key is released and the modal is in focus.
    */
@@ -107,17 +109,19 @@ type Props = {
   /**
    * Callback fired before the dialog exits.
    */
-  onExit?: Function,
+  onExit?: TransitionCallback,
   /**
    * Callback fired when the dialog is exiting.
    */
-  onExiting?: Function,
+  onExiting?: TransitionCallback,
   /**
    * Callback fired when the dialog has exited.
    */
-  onExited?: Function, // eslint-disable-line react/sort-prop-types
+  onExited?: TransitionCallback, // eslint-disable-line react/sort-prop-types
   /**
-   * Callback fired when the dialog requests to be closed.
+   * Callback fired when the component requests to be closed.
+   *
+   * @param {object} event The event source of the callback
    */
   onRequestClose?: Function,
   /**

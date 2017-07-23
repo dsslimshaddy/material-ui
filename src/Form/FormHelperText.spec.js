@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { assert } from 'chai';
-import { createShallow } from '../test-utils';
+import { createShallow, getClasses } from '../test-utils';
 import FormHelperText, { styleSheet } from './FormHelperText';
 
 describe('<FormHelperText />', () => {
@@ -11,13 +11,13 @@ describe('<FormHelperText />', () => {
 
   before(() => {
     shallow = createShallow({ dive: true });
-    classes = shallow.context.styleManager.render(styleSheet);
+    classes = getClasses(styleSheet);
   });
 
   it('should render a <p />', () => {
     const wrapper = shallow(<FormHelperText className="woof" />);
     assert.strictEqual(wrapper.name(), 'p');
-    assert.strictEqual(wrapper.hasClass(classes.root), true, 'should have the root class');
+    assert.strictEqual(wrapper.hasClass(classes.root), true);
     assert.strictEqual(wrapper.hasClass('woof'), true, 'should have the user class');
   });
 
@@ -40,7 +40,7 @@ describe('<FormHelperText />', () => {
     beforeEach(() => {
       wrapper = shallow(<FormHelperText>Foo</FormHelperText>);
     });
-    ['error'].forEach(visualState => {
+    ['error', 'disabled'].forEach(visualState => {
       describe(visualState, () => {
         beforeEach(() => {
           setFormControlContext({ [visualState]: true });
@@ -57,6 +57,24 @@ describe('<FormHelperText />', () => {
           wrapper.setProps({ [visualState]: true });
           assert.strictEqual(wrapper.hasClass(classes[visualState]), true);
         });
+      });
+    });
+
+    describe('margin', () => {
+      describe('context margin: dense', () => {
+        beforeEach(() => {
+          setFormControlContext({ margin: 'dense' });
+        });
+
+        it('should have the dense class', () => {
+          assert.strictEqual(wrapper.hasClass(classes.dense), true);
+        });
+      });
+
+      it('should be overridden by props', () => {
+        assert.strictEqual(wrapper.hasClass(classes.dense), false);
+        wrapper.setProps({ margin: 'dense' });
+        assert.strictEqual(wrapper.hasClass(classes.dense), true);
       });
     });
   });

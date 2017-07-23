@@ -4,7 +4,7 @@ import React from 'react';
 import { spy, stub } from 'sinon';
 import { assert } from 'chai';
 import ReactDOM from 'react-dom';
-import { createShallow, createMount } from '../test-utils';
+import { createShallow, createMount, getClasses } from '../test-utils';
 import Menu, { styleSheet } from './Menu';
 
 describe('<Menu />', () => {
@@ -13,7 +13,7 @@ describe('<Menu />', () => {
 
   before(() => {
     shallow = createShallow({ dive: true });
-    classes = shallow.context.styleManager.render(styleSheet);
+    classes = getClasses(styleSheet);
   });
 
   it('should render a Popover', () => {
@@ -41,15 +41,6 @@ describe('<Menu />', () => {
   it('should pass `classes.root` to the Popover for the className', () => {
     const wrapper = shallow(<Menu />);
     assert.strictEqual(wrapper.hasClass(classes.root), true, 'should be classes.root');
-  });
-
-  it('should pass `classes.entered` to the Popover for the enteredClassName', () => {
-    const wrapper = shallow(<Menu />);
-    assert.strictEqual(
-      wrapper.props().enteredClassName,
-      classes.entered,
-      'should be classes.entered',
-    );
   });
 
   it('should pass the instance function `getContentAnchorEl` to Popover', () => {

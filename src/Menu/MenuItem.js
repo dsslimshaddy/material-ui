@@ -3,7 +3,7 @@
 import React from 'react';
 import type { Element } from 'react';
 import classNames from 'classnames';
-import { createStyleSheet } from 'jss-theme-reactor';
+import createStyleSheet from '../styles/createStyleSheet';
 import withStyles from '../styles/withStyles';
 import ListItem from '../List/ListItem';
 
@@ -72,12 +72,6 @@ function MenuItem(props: Props) {
     classNameProp,
   );
 
-  const listItemProps = {};
-
-  if (!component) {
-    listItemProps.disableRipple = true;
-  }
-
   return (
     <ListItem
       button
@@ -85,7 +79,6 @@ function MenuItem(props: Props) {
       tabIndex="-1"
       className={className}
       component={component}
-      {...listItemProps}
       {...other}
     />
   );

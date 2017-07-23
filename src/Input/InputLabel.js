@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { createStyleSheet } from 'jss-theme-reactor';
+import createStyleSheet from '../styles/createStyleSheet';
 import withStyles from '../styles/withStyles';
 import { FormLabel } from '../Form';
 
@@ -15,7 +15,8 @@ export const styleSheet = createStyleSheet('MuiInputLabel', theme => ({
     position: 'absolute',
     left: 0,
     top: 0,
-    transform: `translate(0, ${theme.spacing.unit * 3}px) scale(1)`,
+    // slight alteration to spec spacing to match visual spec result
+    transform: `translate(0, ${theme.spacing.unit * 3 - 1}px) scale(1)`,
   },
   shrink: {
     transform: 'translate(0, 1.5px) scale(0.75)',
