@@ -88,6 +88,12 @@ jobs:
           command: |
             DOCKER_TEST_URL=http://$(ip addr show lo | grep "inet\b" | awk '{print $2}' | cut -d/ -f1):3090 yarn test:regressions
             yarn argos
+  deploy_docs:
+    <<: *defaults
+    steps:
+     - run:
+          name: Deploy to Firebase
+          command: yarn run deploy 
 workflows:
   version: 2
   pipeline:
@@ -103,3 +109,7 @@ workflows:
           requires:
             - test_unit
             - test_browser
+       - deploy_docs
+          requires:
+            - test_unit
+            - test_browser       
