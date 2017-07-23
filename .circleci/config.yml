@@ -1,3 +1,9 @@
+deployment:
+  production:
+    branch: master
+    commands:
+      - cd docs && yarn build && firebase deploy --token=$FIREBASE_TOKEN --non-interactive
+
 defaults: &defaults
   working_directory: /tmp/material-ui
   docker:
@@ -103,8 +109,3 @@ workflows:
           requires:
             - test_unit
             - test_browser           
-deployment:
-  production:
-    branch: master
-    commands:
-      - firebase deploy --token=$FIREBASE_TOKEN --non-interactive
