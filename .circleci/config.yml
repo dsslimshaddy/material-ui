@@ -15,6 +15,7 @@ jobs:
       - run:
           name: Deploy to Firebase
           command: |
+            yarn add firebase -D
             yarn deploy
   checkout:
     <<: *defaults
