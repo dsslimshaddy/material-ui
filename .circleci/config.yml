@@ -16,7 +16,7 @@ jobs:
           name: Deploy to Firebase
           command: |
             yarn add firebase-tools -D
-            yarn deploy
+            yarn docs:deploy
   checkout:
     <<: *defaults
     steps:
