@@ -2,7 +2,7 @@
   "name": "material-ui-build-next",
   "private": true,
   "author": "Material-UI Team",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "Material Design UI components built with React",
   "main": "./src/index.js",
   "keywords": [
@@ -76,6 +76,8 @@
     "warning": "^3.0.0"
   },
   "devDependencies": {
+    "@types/enzyme": "^2.8.4",
+    "@types/react": "^16.0.0",
     "app-module-path": "^2.2.0",
     "argos-cli": "^0.0.9",
     "babel-cli": "^6.24.1",
