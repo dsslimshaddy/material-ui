@@ -8,7 +8,7 @@ import withStyles from '../styles/withStyles';
 
 const transitionDuration = 4; // 400ms
 
-export const styleSheet = createStyleSheet('MuiLinearProgress', theme => ({
+export const styleSheet = createStyleSheet(theme => ({
   root: {
     position: 'relative',
     overflow: 'hidden',
@@ -39,11 +39,13 @@ export const styleSheet = createStyleSheet('MuiLinearProgress', theme => ({
     backgroundPosition: '0px -23px',
   },
   bar: {
+    width: '100%',
     position: 'absolute',
     left: 0,
     bottom: 0,
     top: 0,
     transition: 'transform 0.2s linear',
+    transformOrigin: 'left',
   },
   dashed: {
     position: 'absolute',
@@ -53,7 +55,7 @@ export const styleSheet = createStyleSheet('MuiLinearProgress', theme => ({
     animation: 'buffer 3s infinite linear',
   },
   bufferBar2: {
-    transition: `width .${transitionDuration}s linear`,
+    transition: `transform .${transitionDuration}s linear`,
   },
   rootBuffer: {
     backgroundColor: 'transparent',
@@ -71,19 +73,19 @@ export const styleSheet = createStyleSheet('MuiLinearProgress', theme => ({
     animationDelay: '1.15s',
   },
   determinateBar1: {
-    willChange: 'width',
-    transition: `width .${transitionDuration}s linear`,
+    willChange: 'transform',
+    transition: `transform .${transitionDuration}s linear`,
   },
   bufferBar1: {
     zIndex: 1,
-    transition: `width .${transitionDuration}s linear`,
+    transition: `transform .${transitionDuration}s linear`,
   },
   bufferBar2Primary: {
-    transition: `width .${transitionDuration}s linear`,
+    transition: `transform .${transitionDuration}s linear`,
     backgroundColor: theme.palette.primary[100],
   },
   bufferBar2Accent: {
-    transition: `width .${transitionDuration}s linear`,
+    transition: `transform .${transitionDuration}s linear`,
     backgroundColor: theme.palette.accent.A100,
   },
   '@keyframes mui-indeterminate1': {
@@ -167,11 +169,11 @@ function LinearProgress(props) {
   const rootProps = {};
 
   if (mode === 'determinate') {
-    styles.primary.width = `${value}%`;
+    styles.primary.transform = `scaleX(${value / 100})`;
     rootProps['aria-valuenow'] = Math.round(value);
   } else if (mode === 'buffer') {
-    styles.primary.width = `${value}%`;
-    styles.secondary.width = `${valueBuffer}%`;
+    styles.primary.transform = `scaleX(${value / 100})`;
+    styles.secondary.transform = `scaleX(${valueBuffer / 100})`;
   }
 
   return (
@@ -221,4 +223,4 @@ LinearProgress.defaultProps = {
   value: 0,
 };
 
-export default withStyles(styleSheet)(LinearProgress);
+export default withStyles(styleSheet, { name: 'MuiLinearProgress' })(LinearProgress);
